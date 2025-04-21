@@ -108,9 +108,23 @@ class ScalarTrain:
                 log_fn(epoch, total_loss, correct, losses)
 
 
+
 if __name__ == "__main__":
     PTS = 50
-    HIDDEN = 2
     RATE = 0.5
-    data = minitorch.datasets["Simple"](PTS)
-    ScalarTrain(HIDDEN).train(data, RATE)
+
+    # Datasets
+    CONFIG = [
+        ("Simple",  2),
+        ("Diag",    2),
+        ("Split",   2),
+        ("Xor",    10),
+    ]
+
+    for name, hidden in CONFIG:
+        print(f"\n=== Training on {name} (hidden={hidden}) ===")
+        #build data
+        data = minitorch.datasets[name](PTS)
+        trainer = ScalarTrain(hidden)
+        # run training
+        trainer.train(data, RATE)
