@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any, Iterable, List, Tuple,Set
+from typing import Any, Iterable, List, Tuple, Set
 
 from typing_extensions import Protocol
 
@@ -106,8 +106,6 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
                 parent.derivative = grad
             else:
                 parent.derivative += grad
-
-
 
 
 @dataclass
