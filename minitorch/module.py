@@ -1,8 +1,6 @@
 from __future__ import annotations
-from typing import Any, Dict, Optional, Sequence, Tuple
-import random
 
-from .scalar import Scalar
+from typing import Any, Dict, Optional, Sequence, Tuple
 
 
 class Module:
@@ -14,6 +12,7 @@ class Module:
         _modules : Storage of the child modules
         _parameters : Storage of the module's parameters
         training : Whether the module is in training mode or evaluation mode
+
     """
 
     _modules: Dict[str, Module]
@@ -32,6 +31,7 @@ class Module:
 
     def train(self) -> None:
         "Set the mode of this module and all descendent modules to `train`."
+        # TODO: Implement for Task 0.4.
         self.training = True
         for module in self._modules.values():
             module.train()
@@ -46,9 +46,11 @@ class Module:
         """
         Collect all the parameters of this module and its descendents.
 
+
         Returns:
             The name and `Parameter` of each ancestor parameter.
         """
+        # TODO: Implement for Task 0.4.
         result = []
         for name, param in self._parameters.items():
             result.append((name, param))
@@ -56,11 +58,10 @@ class Module:
             for name, param in module.named_parameters():
                 result.append((f"{module_name}.{name}", param))
         return result
-
     def parameters(self) -> Sequence[Parameter]:
         "Enumerate over all the parameters of this module and its descendents."
+        # TODO: Implement for Task 0.4.
         return [param for _, param in self.named_parameters()]
-
     def add_parameter(self, k: str, v: Any) -> Parameter:
         """
         Manually add a parameter. Useful helper for scalar parameters.
@@ -107,6 +108,7 @@ class Module:
             return s
 
         child_lines = []
+
         for key, module in self._modules.items():
             mod_str = repr(module)
             mod_str = _addindent(mod_str, 2)
@@ -115,7 +117,9 @@ class Module:
 
         main_str = self.__class__.__name__ + "("
         if lines:
+            # simple one-liner info, which most builtin Modules will use
             main_str += "\n  " + "\n  ".join(lines) + "\n"
+
         main_str += ")"
         return main_str
 
@@ -149,14 +153,18 @@ class Parameter:
 
     def __str__(self) -> str:
         return str(self.value)
-
+    
+    
+import random
+from .scalar import Scalar
 
 class Linear(Module):
     def __init__(self, in_features: int, out_features: int):
         super().__init__()
+        # Initialize weight matrix and bias vector as Parameters
         self.weight: list[list[Parameter]] = [
             [self.add_parameter(f"w_{i}_{j}", random.uniform(-1, 1))
-             for j in range(out_features)]
+                for j in range(out_features)]
             for i in range(in_features)
         ]
         self.bias: list[Parameter] = [
@@ -166,12 +174,11 @@ class Linear(Module):
     def forward(self, x: list[Scalar]) -> list[Scalar]:
         out: list[Scalar] = []
         for j, b in enumerate(self.bias):
-            acc: Scalar = b
+            acc: Scalar = b  
             for i, xi in enumerate(x):
                 acc = acc + xi * self.weight[i][j]
             out.append(acc)
         return out
-
 
 class Network(Module):
     def __init__(self, in_features: int, hidden: int, out_features: int):
@@ -183,3 +190,4 @@ class Network(Module):
         h = self.l1(x)
         h = [t.relu() for t in h]
         return self.l2(h)
+
