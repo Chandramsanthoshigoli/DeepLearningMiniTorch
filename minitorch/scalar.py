@@ -139,7 +139,7 @@ def derivative_check(f: Any, *scalars: Scalar) -> None:
     out.backward()
     for i, x in enumerate(scalars):
         check = central_difference(f, *scalars, arg=i)
-        print(f"[{', '.join(str(s.data) for s in scalars)}]  got: {x.derivative:.4f}  expected: {check:.4f}")
+        print(f"[{', '.join(str(s.data) for s in scalars)}]  got: {float(x.derivative):.4f}  expected: {float(check):.4f}")
         assert x.derivative is not None
         np.testing.assert_allclose(
             x.derivative,
