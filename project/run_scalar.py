@@ -10,8 +10,12 @@ import minitorch
 class Network(minitorch.Module):
     def __init__(self, hidden_layers):
         super().__init__()
-        # TODO: Implement for Task 1.5.
-        raise NotImplementedError("Need to implement for Task 1.5")
+        # ASSIGN1.5
+        # Submodules
+        self.layer1 = Linear(2, hidden_layers)
+        self.layer2 = Linear(hidden_layers, hidden_layers)
+        self.layer3 = Linear(hidden_layers, 1)
+        # END ASSIGN1.5
 
     def forward(self, x):
         middle = [h.relu() for h in self.layer1.forward(x)]
@@ -40,8 +44,13 @@ class Linear(minitorch.Module):
             )
 
     def forward(self, inputs):
-        # TODO: Implement for Task 1.5.
-        raise NotImplementedError("Need to implement for Task 1.5")
+        # ASSIGN1.5
+        y = [b.value for b in self.bias]
+        for i, x in enumerate(inputs):
+            for j in range(len(y)):
+                y[j] = y[j] + x * self.weights[i][j].value
+        return y
+        # END ASSIGN1.5
 
 
 def default_log_fn(epoch, total_loss, correct, losses):
@@ -99,9 +108,23 @@ class ScalarTrain:
                 log_fn(epoch, total_loss, correct, losses)
 
 
+
 if __name__ == "__main__":
     PTS = 50
-    HIDDEN = 2
     RATE = 0.5
-    data = minitorch.datasets["Simple"](PTS)
-    ScalarTrain(HIDDEN).train(data, RATE)
+
+    # Datasets
+    CONFIG = [
+        ("Simple",  2),
+        ("Diag",    2),
+        ("Split",   2),
+        ("Xor",    10),
+    ]
+
+    for name, hidden in CONFIG:
+        print(f"\n=== Training on {name} (hidden={hidden}) ===")
+        #build data
+        data = minitorch.datasets[name](PTS)
+        trainer = ScalarTrain(hidden)
+        # run training
+        trainer.train(data, RATE)

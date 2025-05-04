@@ -31,11 +31,16 @@ class Module:
 
     def train(self) -> None:
         "Set the mode of this module and all descendent modules to `train`."
-        raise NotImplementedError("Need to include this file from past assignment.")
+        # TODO: Implement for Task 0.4.
+        self.training = True
+        for module in self._modules.values():
+            module.train()
 
     def eval(self) -> None:
         "Set the mode of this module and all descendent modules to `eval`."
-        raise NotImplementedError("Need to include this file from past assignment.")
+        self.training = False
+        for module in self._modules.values():
+            module.eval()
 
     def named_parameters(self) -> Sequence[Tuple[str, Parameter]]:
         """
@@ -45,12 +50,18 @@ class Module:
         Returns:
             The name and `Parameter` of each ancestor parameter.
         """
-        raise NotImplementedError("Need to include this file from past assignment.")
-
+        # TODO: Implement for Task 0.4.
+        result = []
+        for name, param in self._parameters.items():
+            result.append((name, param))
+        for module_name, module in self._modules.items():
+            for name, param in module.named_parameters():
+                result.append((f"{module_name}.{name}", param))
+        return result
     def parameters(self) -> Sequence[Parameter]:
         "Enumerate over all the parameters of this module and its descendents."
-        raise NotImplementedError("Need to include this file from past assignment.")
-
+        # TODO: Implement for Task 0.4.
+        return [param for _, param in self.named_parameters()]
     def add_parameter(self, k: str, v: Any) -> Parameter:
         """
         Manually add a parameter. Useful helper for scalar parameters.
@@ -142,3 +153,41 @@ class Parameter:
 
     def __str__(self) -> str:
         return str(self.value)
+    
+    
+import random
+from .scalar import Scalar
+
+class Linear(Module):
+    def __init__(self, in_features: int, out_features: int):
+        super().__init__()
+        # Initialize weight matrix and bias vector as Parameters
+        self.weight: list[list[Parameter]] = [
+            [self.add_parameter(f"w_{i}_{j}", random.uniform(-1, 1))
+                for j in range(out_features)]
+            for i in range(in_features)
+        ]
+        self.bias: list[Parameter] = [
+            self.add_parameter(f"b_{j}", 0.0) for j in range(out_features)
+        ]
+
+    def forward(self, x: list[Scalar]) -> list[Scalar]:
+        out: list[Scalar] = []
+        for j, b in enumerate(self.bias):
+            acc: Scalar = b  
+            for i, xi in enumerate(x):
+                acc = acc + xi * self.weight[i][j]
+            out.append(acc)
+        return out
+
+class Network(Module):
+    def __init__(self, in_features: int, hidden: int, out_features: int):
+        super().__init__()
+        self.l1 = Linear(in_features, hidden)
+        self.l2 = Linear(hidden, out_features)
+
+    def forward(self, x: list[Scalar]) -> list[Scalar]:
+        h = self.l1(x)
+        h = [t.relu() for t in h]
+        return self.l2(h)
+
