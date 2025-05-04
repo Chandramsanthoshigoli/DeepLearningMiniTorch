@@ -12,7 +12,8 @@ from .tensor_data import (
     shape_broadcast,
     to_index,
 )
-from .tensor_ops import MapProto, TensorOps
+from .tensor_ops import TensorOps
+
 
 if TYPE_CHECKING:
     from typing import Callable, Optional
