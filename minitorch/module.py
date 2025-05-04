@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional, Sequence, Tuple
 
+
 class Module:
     """
     Modules form a tree that store parameters and other
@@ -122,6 +123,7 @@ class Module:
         main_str += ")"
         return main_str
 
+
 class Parameter:
     """
     A Parameter is a special container stored in a `Module`.
@@ -188,3 +190,4 @@ class Network(Module):
         h = self.l1(x)
         h = [t.relu() for t in h]
         return self.l2(h)
+

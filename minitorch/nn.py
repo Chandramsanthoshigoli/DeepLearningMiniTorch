@@ -56,7 +56,7 @@ def argmax(input: Tensor, dim: int) -> Tensor:
 
 
     Returns:
-        :class:`Tensor` : tensor with 1 on highest cell in dim, 0 otherwise
+        : class: `Tensor` : tensor with 1 on highest cell in dim, 0 otherwise
 
     """
     out = max_reduce(input, dim)
@@ -87,7 +87,7 @@ def softmax(input: Tensor, dim: int) -> Tensor:
 
 
 
-    $z_i = \frac{e^{x_i}}{\sum_i e^{x_i}}$
+    $z_i = \\frac{e^{x_i}}{\\sum_i e^{x_i}}$
 
     Args:
         input : input tensor
@@ -104,9 +104,9 @@ def logsoftmax(input: Tensor, dim: int) -> Tensor:
     r"""
     Compute the log of the softmax as a tensor.
 
-    $z_i = x_i - \log \sum_i e^{x_i}$
+    $z_i = x_i - \\log \\sum_i e^{x_i}$
 
-    See https://en.wikipedia.org/wiki/LogSumExp#log-sum-exp_trick_for_log-domain_calculations
+    See https: //en.wikipedia.org/wiki/LogSumExp#log-sum-exp_trick_for_log-domain_calculations
 
     Args:
         input : input tensor

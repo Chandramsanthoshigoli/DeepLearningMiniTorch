@@ -53,7 +53,7 @@ class Linear(minitorch.Module):
         # END ASSIGN1.5
 
 
-def default_log_fn(epoch, total_loss, correct, losses):
+def default_log_fn(epoch, total_loss, correct, losses) -> None:
     print("Epoch ", epoch, " loss ", total_loss, "correct", correct)
 
 
@@ -122,7 +122,7 @@ if __name__ == "__main__":
     ]
 
     for name, hidden in CONFIG:
-        print(f"\n=== Training on {name} (hidden={hidden}) ===")
+        print(f"\\n=== Training on {name} (hidden={hidden}) ===")
         #build data
         data = minitorch.datasets[name](PTS)
         trainer = ScalarTrain(hidden)

@@ -21,7 +21,7 @@ random.seed(10)
 s = minitorch.datasets["Simple"](10)
 spl = minitorch.datasets["Split"](10)
 
-def base_model(x1, x2):
+def base_model(x1, x2) -> None:
     return 1 if x1 + x2 > 1.0 else -1
 
 s1 = [s.X[i] for i in range(len(s.y)) if base_model(*s.X[i]) < 0]
@@ -31,24 +31,24 @@ d = spl
 s1_hard = [d.X[i] for i in range(len(d.y)) if d.y[i] == 0]
 s2_hard = [d.X[i] for i in range(len(d.y)) if d.y[i] == 1]
 
-def show(model):
+def show(model) -> None:
     "Plot over model"
     return draw_graph(model) + split_graph(s1, s2, show_origin=False)
 
-def circle_mark():
+def circle_mark() -> None:
     d = (
         ch.Trail.circle(2).centered().to_path()
         + ch.Trail.circle(1.0, False).centered().to_path()
     )
     return d.stroke().fill_color(aqua).line_width(0.2).scale_uniform_to_x(0.1)
 
-def origin():
+def origin() -> None:
     return ch.rectangle(1, 1).translate(0.5, -0.5).fill_color(ch.white).line_color(ch.white)
 
-def axes():
+def axes() -> None:
     return (ch.vrule(1).translate(0, -0.5) + ch.hrule(1).translate(0.5, 0)).line_width(0.2)
 
-def d_mark():
+def d_mark() -> None:
     t = Trail.from_offsets(
         [
             unit_x,
@@ -68,7 +68,7 @@ def d_mark():
     )
     return t.rotate_by(0.25 / 2).line_width(0.2).scale_uniform_to_x(0.1).fill_color(Color("blue"))
 
-def x_mark():
+def x_mark() -> None:
     t = Trail.from_offsets(
         [
             unit_x,
@@ -95,17 +95,17 @@ def x_mark():
         .fill_color(Color("red"))
     )
 
-def points(m, pts):
+def points(m, pts) -> None:
     return place_on_path([m] * len(pts), ch.Path.from_list_of_tuples(pts).reflect_y())
 
-def draw_below(fn):
+def draw_below(fn) -> None:
     return make_path([(0, 0), (0, fn(0)), (1, fn(1)), (1, 0), (0, 0)]).reflect_y()
 
-def split_graph(circles, crosses, show_origin=True):
+def split_graph(circles, crosses, show_origin=True) -> None:
     dia = empty() if not show_origin else origin() + axes()
     return dia + points(circle_mark(), circles) + points(x_mark(), crosses)
 
-def quad(fn, c1, c2):
+def quad(fn, c1, c2) -> None:
     def q(tl, s):
         v = [fn(tl.x + d1 * s, tl.y + d2 * s) for d1 in range(2) for d2 in range(2)]
 
@@ -121,10 +121,10 @@ def quad(fn, c1, c2):
 
     return q(ch.P2(0, 0), 1)
 
-def draw_graph(f, c1=lightred, c2=lightblue):
+def draw_graph(f, c1=lightred, c2=lightblue) -> None:
     return quad(lambda x1, x2: f.forward(x1, x2) > 0, c1, c2).reflect_y() + axes()
 
-def compare(m1, m2):
+def compare(m1, m2) -> None:
     return (
         draw_graph(m1).center_xy()
         | ch.hstrut(0.5)
@@ -133,7 +133,7 @@ def compare(m1, m2):
         | draw_graph(m2).center_xy()
     )
 
-def with_points(pts1, pts2, b):
+def with_points(pts1, pts2, b) -> None:
     model = ch.Linear(1, 1, b)
     line = make_path([(0, b), (1, b + 1)])
     dia = draw_graph(model) + split_graph(pts1, pts2, False)
@@ -144,7 +144,7 @@ def with_points(pts1, pts2, b):
             dia += make_path([(pt[0], -pt[1]), pt2]).dashing([5, 5], 0)
     return dia
 
-def graph(fn, xs=[], os=[], width=4, offset=0, c=Color("red")):
+def graph(fn, xs=[], os=[], width=4, offset=0, c=Color("red")) -> None:
     path = []
     m = 0
     for a in range(100):
@@ -163,7 +163,7 @@ def graph(fn, xs=[], os=[], width=4, offset=0, c=Color("red")):
         dia += circle_mark().scale(width / 2).translate(pt, fn(pt))
     return dia.reflect_y()
 
-def show_loss(full_loss):
+def show_loss(full_loss) -> None:
     d = empty()
     scores = []
     path = []
@@ -188,7 +188,7 @@ def show_loss(full_loss):
         d = d.connect(("graph", i), ("x", i), ch.ArrowOpts(head_pad=0.1))
     return d
 
-def draw_with_hard_points(model, c1=None, c2=None):
+def draw_with_hard_points(model, c1=None, c2=None) -> None:
     if c1 is None:
         d = draw_graph(model)
     else:

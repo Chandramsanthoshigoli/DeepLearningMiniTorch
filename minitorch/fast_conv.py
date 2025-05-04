@@ -225,7 +225,7 @@ class Conv2dFun(Function):
             weight  : out_channel x in_channel x kh x kw
 
         Returns:
-            (:class:`Tensor`) : batch x out_channel x h x w
+            (: class: `Tensor`) : batch x out_channel x h x w
         """
         ctx.save_for_backward(input, weight)
         batch, in_channels, h, w = input.shape

@@ -5,7 +5,7 @@ Collection of the core mathematical operators used throughout the code base.
 import math
 from typing import Callable, Iterable
 
-# # # Task 0.1
+# ## Task 0.1
 # Implementation of a prelude of elementary functions.
 
 def mul(x: float, y: float) -> float:
@@ -80,7 +80,7 @@ def relu_back(x: float, d: float) -> float:
     "$f(x) = relu(x) \\Rightarrow f'(x) = 1 \\text{ if } x > 0$, else 0$"
     return d if x > 0 else 0
 
-# # # Task 0.3 - Higher order functions
+# ## Task 0.3 - Higher order functions
 
 def map(fn: Callable[[float], float]) -> Callable[[Iterable[float]], Iterable[float]]:
     def apply(my_list):

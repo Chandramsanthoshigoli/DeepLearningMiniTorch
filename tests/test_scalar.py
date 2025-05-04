@@ -17,6 +17,7 @@ from .strategies import assert_close, small_floats
 
 
 @composite
+
 def scalars(
     draw: DrawFn, min_value: float = -100000, max_value: float = 100000
 ) -> Scalar:
@@ -31,6 +32,7 @@ small_scalars = scalars(min_value=-100, max_value=100)
 
 
 @pytest.mark.task1_1
+
 def test_central_diff() -> None:
     d = central_difference(operators.id, 5, arg=0)
     assert_close(d, 1.0)
@@ -52,6 +54,7 @@ def test_central_diff() -> None:
 
 
 @given(small_floats, small_floats)
+
 def test_simple(a: float, b: float) -> None:
     # Simple add
     c = Scalar(a) + Scalar(b)
@@ -74,6 +77,7 @@ one_arg, two_arg, _ = MathTestVariable._comp_testing()
 @given(small_scalars)
 @pytest.mark.task1_2
 @pytest.mark.parametrize("fn", one_arg)
+
 def test_one_args(
     fn: Tuple[str, Callable[[float], float], Callable[[Scalar], Scalar]], t1: Scalar
 ) -> None:
@@ -84,6 +88,7 @@ def test_one_args(
 @given(small_scalars, small_scalars)
 @pytest.mark.task1_2
 @pytest.mark.parametrize("fn", two_arg)
+
 def test_two_args(
     fn: Tuple[str, Callable[[float, float], float], Callable[[Scalar, Scalar], Scalar]],
     t1: Scalar,
@@ -101,6 +106,7 @@ def test_two_args(
 @given(small_scalars)
 @pytest.mark.task1_4
 @pytest.mark.parametrize("fn", one_arg)
+
 def test_one_derivative(
     fn: Tuple[str, Callable[[float], float], Callable[[Scalar], Scalar]], t1: Scalar
 ) -> None:
@@ -111,6 +117,7 @@ def test_one_derivative(
 @given(small_scalars, small_scalars)
 @pytest.mark.task1_4
 @pytest.mark.parametrize("fn", two_arg)
+
 def test_two_derivative(
     fn: Tuple[str, Callable[[float, float], float], Callable[[Scalar, Scalar], Scalar]],
     t1: Scalar,

@@ -2,7 +2,7 @@ import random
 from dataclasses import dataclass
 
 
-def make_pts(N):
+def make_pts(N) -> None:
     X = []
     for i in range(N):
         x_1 = random.random()
@@ -12,13 +12,14 @@ def make_pts(N):
 
 
 @dataclass
+
 class Graph:
     N: int
     X: list
     y: list
 
 
-def simple(N):
+def simple(N) -> None:
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -27,7 +28,7 @@ def simple(N):
     return Graph(N, X, y)
 
 
-def split(N):
+def split(N) -> None:
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:
@@ -36,7 +37,7 @@ def split(N):
     return Graph(N, X, y)
 
 
-def xor(N):
+def xor(N) -> None:
     X = make_pts(N)
     y = []
     for x_1, x_2 in X:

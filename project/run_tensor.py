@@ -6,7 +6,7 @@ Be sure you have minitorch installed in you Virtual Env.
 import minitorch
 
 
-def RParam(*shape):
+def RParam(*shape) -> None:
     r = 2 * (minitorch.rand(shape) - 0.5)
     return minitorch.Parameter(r)
 
@@ -45,7 +45,7 @@ class Linear(minitorch.Module):
         # END ASSIGN2.5
 
 
-def default_log_fn(epoch, total_loss, correct, losses):
+def default_log_fn(epoch, total_loss, correct, losses) -> None:
     print("Epoch ", epoch, " loss ", total_loss, "correct", correct)
 
 

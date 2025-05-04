@@ -24,6 +24,7 @@ ScalarLike = Union[float, int, "Scalar"]
 
 
 @dataclass
+
 class ScalarHistory:
     """
     `ScalarHistory` stores the history of `Function` operations that was

@@ -8,7 +8,7 @@ MyModule = None
 minitorch
 
 
-def render_module_sandbox():
+def render_module_sandbox() -> None:
     st.write("## Sandbox for Module Trees")
 
     st.write(
@@ -19,6 +19,7 @@ def render_module_sandbox():
         language="python",
         height=300,
         value="""
+
 class MyModule(minitorch.Module):
     def __init__(self):
         super().__init__()
@@ -34,7 +35,7 @@ class MyModule(minitorch.Module):
 
     while stack:
         n, name = stack[0]
-        stack = stack[1:]
+        stack = stack[1: ]
         for pname, p in n.__dict__["_parameters"].items():
             G.add_node(name + "." + pname, shape="rect", penwidth=0.5)
             G.add_edge(name, name + "." + pname)

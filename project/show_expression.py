@@ -10,7 +10,8 @@ import minitorch
 
 
 ## Create an autodiff expression here.
-def expression():
+
+def expression() -> None:
     x = minitorch.Scalar(1.0, name="x")
     y = minitorch.Scalar(1.0, name="y")
     z = (x * x) * y + 10.0 * x
@@ -45,7 +46,7 @@ class GraphBuilder:
 
         while queue:
             (cur,) = queue[0]
-            queue = queue[1:]
+            queue = queue[1: ]
 
             if cur.history is None:
                 continue
@@ -72,7 +73,7 @@ class GraphBuilder:
         return G
 
 
-def make_graph(y, lr=False):
+def make_graph(y, lr=False) -> None:
     G = GraphBuilder().run(y)
     if lr:
         G.graph["graph"] = {"rankdir": "LR"}

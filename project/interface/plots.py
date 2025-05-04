@@ -1,7 +1,7 @@
 import plotly.graph_objects as go
 
 
-def make_scatters(graph, model=None, size=50):
+def make_scatters(graph, model=None, size=50) -> None:
     color_map = ["#69bac9", "#ea8484"]
     symbol_map = ["circle-dot", "x"]
     colors = [color_map[y] for y in graph.y]
@@ -42,7 +42,7 @@ def make_scatters(graph, model=None, size=50):
     return scatters
 
 
-def animate(self, models, names):
+def animate(self, models, names) -> None:
     import plotly.graph_objects as go
 
     scatters = [make_scatters(self, m) for m in models]
@@ -88,7 +88,7 @@ def animate(self, models, names):
     fig.show()
 
 
-def make_oned(graph, model=None, size=50):
+def make_oned(graph, model=None, size=50) -> None:
     scatters = []
     color_map = ["#69bac9", "#ea8484"]
     symbol_map = ["circle-dot", "x"]
@@ -122,7 +122,7 @@ def make_oned(graph, model=None, size=50):
     return scatters
 
 
-def plot_out(graph, model=None, name="", size=50, oned=False):
+def plot_out(graph, model=None, name="", size=50, oned=False) -> None:
     if oned:
         scatters = make_oned(graph, model, size=size)
     else:
@@ -144,11 +144,11 @@ def plot_out(graph, model=None, name="", size=50, oned=False):
     return fig
 
 
-def plot(graph, model=None, name=""):
+def plot(graph, model=None, name="") -> None:
     plot_out(graph, model, name).show()
 
 
-def plot_function(title, fn, arange=[(i / 10.0) - 5 for i in range(0, 100)], fn2=None):
+def plot_function(title, fn, arange=[(i / 10.0) - 5 for i in range(0, 100)], fn2=None) -> None:
     ys = [fn(x) for x in arange]
     scatters = []
     scatter = go.Scatter(x=arange, y=ys)
@@ -163,7 +163,7 @@ def plot_function(title, fn, arange=[(i / 10.0) - 5 for i in range(0, 100)], fn2
     return fig.show()
 
 
-def plot_function3D(title, fn, arange=[(i / 5.0) - 4.0 for i in range(0, 40)]):
+def plot_function3D(title, fn, arange=[(i / 5.0) - 4.0 for i in range(0, 40)]) -> None:
 
     xs = [((x / 10.0) - 5.0 + 1e-5) for x in range(1, 100)]
     ys = [((x / 10.0) - 5.0 + 1e-5) for x in range(1, 100)]

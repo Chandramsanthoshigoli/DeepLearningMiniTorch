@@ -73,7 +73,7 @@ class FastOps(TensorOps):
 
             # Other values when not sum.
             out = a.zeros(tuple(out_shape))
-            out._tensor._storage[:] = start
+            out._tensor._storage[: ] = start
 
             f(*out.tuple(), *a.tuple(), dim)
             return out
@@ -83,7 +83,7 @@ class FastOps(TensorOps):
     @staticmethod
     def matrix_multiply(a: Tensor, b: Tensor) -> Tensor:
         """
-        Batched tensor matrix multiply ::
+        Batched tensor matrix multiply : :
 
             for n:
               for i:
@@ -93,7 +93,7 @@ class FastOps(TensorOps):
 
         Where n indicates an optional broadcasted batched dimension.
 
-        Should work for tensor shapes of 3 dims ::
+        Should work for tensor shapes of 3 dims : :
 
             assert a.shape[-1] == b.shape[-2]
 
@@ -115,7 +115,7 @@ class FastOps(TensorOps):
             both_2d += 1
         both_2d = both_2d == 2
 
-        ls = list(shape_broadcast(a.shape[:-2], b.shape[:-2]))
+        ls = list(shape_broadcast(a.shape[: -2], b.shape[: -2]))
         ls.append(a.shape[-2])
         ls.append(b.shape[-1])
         assert a.shape[-1] == b.shape[-2]

@@ -14,6 +14,7 @@ def make_pts(N: int) -> List[Tuple[float, float]]:
 
 
 @dataclass
+
 class Graph:
     N: int
     X: List[Tuple[float, float]]

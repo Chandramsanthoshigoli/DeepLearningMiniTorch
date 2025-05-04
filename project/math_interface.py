@@ -11,7 +11,7 @@ MyModule = None
 minitorch
 
 
-def render_math_sandbox(use_scalar=False, use_tensor=False):
+def render_math_sandbox(use_scalar=False, use_tensor=False) -> None:
     st.write("## Sandbox for Math Functions")
     st.write("Visualization of the mathematical tests run on the underlying code.")
 

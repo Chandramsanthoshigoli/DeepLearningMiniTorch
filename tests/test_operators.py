@@ -31,6 +31,7 @@ from .strategies import assert_close, small_floats
 
 @pytest.mark.task0_1
 @given(small_floats, small_floats)
+
 def test_same_as_python(x: float, y: float) -> None:
     "Check that the main operators all return the same value of the python version"
     assert_close(mul(x, y), x * y)
@@ -42,6 +43,7 @@ def test_same_as_python(x: float, y: float) -> None:
 
 @pytest.mark.task0_1
 @given(small_floats)
+
 def test_relu(a: float) -> None:
     if a > 0:
         assert relu(a) == a
@@ -50,6 +52,7 @@ def test_relu(a: float) -> None:
 
 @pytest.mark.task0_1
 @given(small_floats, small_floats)
+
 def test_relu_back(a: float, b: float) -> None:
     if a > 0:
         assert relu_back(a, b) == b
@@ -58,11 +61,13 @@ def test_relu_back(a: float, b: float) -> None:
 
 @pytest.mark.task0_1
 @given(small_floats)
+
 def test_id(a: float) -> None:
     assert id(a) == a
 
 @pytest.mark.task0_1
 @given(small_floats)
+
 def test_lt(a: float) -> None:
     "Check that a - 1.0 is always less than a"
     assert lt(a - 1.0, a) == 1.0
@@ -70,6 +75,7 @@ def test_lt(a: float) -> None:
 
 @pytest.mark.task0_1
 @given(small_floats)
+
 def test_max(a: float) -> None:
     assert max(a - 1.0, a) == a
     assert max(a, a - 1.0) == a
@@ -78,6 +84,7 @@ def test_max(a: float) -> None:
 
 @pytest.mark.task0_1
 @given(small_floats)
+
 def test_eq(a: float) -> None:
     assert eq(a, a) == 1.0
     assert eq(a, a - 1.0) == 0.0
@@ -87,6 +94,7 @@ def test_eq(a: float) -> None:
 
 @pytest.mark.task0_2
 @given(small_floats)
+
 def test_sigmoid(a: float) -> None:
     val = sigmoid(a)
     assert 0.0 <= val <= 1.0
@@ -97,16 +105,19 @@ def test_sigmoid(a: float) -> None:
 
 @pytest.mark.task0_2
 @given(small_floats, small_floats, small_floats)
+
 def test_transitive(a: float, b: float, c: float) -> None:
     if lt(a, b) and lt(b, c):
         assert lt(a, c)
 
 @pytest.mark.task0_2
+
 def test_symmetric() -> None:
     assert mul(3.0, 4.0) == mul(4.0, 3.0)
     assert mul(-5.2, 2.0) == mul(2.0, -5.2)
 
 @pytest.mark.task0_2
+
 def test_distribute() -> None:
     x, y, z = 2.0, 3.0, 4.0
     left = mul(z, add(x, y))
@@ -114,6 +125,7 @@ def test_distribute() -> None:
     assert_close(left, right)
 
 @pytest.mark.task0_2
+
 def test_other() -> None:
     assert_close(inv(2.0) * 2.0, 1.0)
     assert_close(relu(-1.0), 0.0)
@@ -122,6 +134,7 @@ def test_other() -> None:
 
 @pytest.mark.task0_3
 @given(small_floats, small_floats, small_floats, small_floats)
+
 def test_zip_with(a: float, b: float, c: float, d: float) -> None:
     x1, x2 = addLists([a, b], [c, d])
     y1, y2 = a + c, b + d
@@ -133,22 +146,26 @@ def test_zip_with(a: float, b: float, c: float, d: float) -> None:
     lists(small_floats, min_size=5, max_size=5),
     lists(small_floats, min_size=5, max_size=5),
 )
+
 def test_sum_distribute(ls1: List[float], ls2: List[float]) -> None:
     merged = [x + y for x, y in zip(ls1, ls2)]
     assert_close(sum(merged), add(sum(ls1), sum(ls2)))
 
 @pytest.mark.task0_3
 @given(lists(small_floats))
+
 def test_sum(ls: List[float]) -> None:
     assert_close(sum(ls), sum(ls))
 
 @pytest.mark.task0_3
 @given(small_floats, small_floats, small_floats)
+
 def test_prod(x: float, y: float, z: float) -> None:
     assert_close(prod([x, y, z]), x * y * z)
 
 @pytest.mark.task0_3
 @given(lists(small_floats))
+
 def test_negList(ls: List[float]) -> None:
     check = negList(ls)
     for i, j in zip(ls, check):
@@ -160,17 +177,20 @@ one_arg, two_arg, _ = MathTest._tests()
 
 @given(small_floats)
 @pytest.mark.parametrize("fn", one_arg)
+
 def test_one_args(fn: Tuple[str, Callable[[float], float]], t1: float) -> None:
     name, base_fn = fn
     base_fn(t1)
 
 @given(small_floats, small_floats)
 @pytest.mark.parametrize("fn", two_arg)
+
 def test_two_args(fn: Tuple[str, Callable[[float, float], float]], t1: float, t2: float) -> None:
     name, base_fn = fn
     base_fn(t1, t2)
 
 @given(small_floats, small_floats)
+
 def test_backs(a: float, b: float) -> None:
     relu_back(a, b)
     inv_back(a + 2.4, b)

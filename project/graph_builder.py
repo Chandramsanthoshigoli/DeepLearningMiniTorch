@@ -8,7 +8,7 @@ else:
     Scalar = None
 
 
-def build_expression(code):
+def build_expression(code) -> None:
     out = eval(
         code,
         {
@@ -21,7 +21,7 @@ def build_expression(code):
     return out
 
 
-def build_tensor_expression(code):
+def build_tensor_expression(code) -> None:
 
     variables = {
         "x": minitorch.tensor([[1.0, 2.0, 3.0]], requires_grad=True),
@@ -64,7 +64,7 @@ class GraphBuilder:
 
         while queue:
             (cur,) = queue[0]
-            queue = queue[1:]
+            queue = queue[1: ]
 
             if cur.is_constant() or cur.is_leaf():
                 continue

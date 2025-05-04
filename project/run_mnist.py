@@ -106,7 +106,7 @@ for i in range(10000, 10500):
         val_ys.append(1.0 if y == 3 else 0.0)
         val_x += images[i]
 vis.images(
-    numpy.array(val_x).reshape((len(val_ys), 1, 28, 28))[:BATCH], win="val_images"
+    numpy.array(val_x).reshape((len(val_ys), 1, 28, 28))[: BATCH], win="val_images"
 )
 
 
@@ -138,7 +138,7 @@ for epoch in range(250):
                 p.update(p.value - RATE * (p.value.grad / float(BATCH)))
         if i % 10 == 0:
             correct = 0
-            y = minitorch.tensor(val_ys[:BATCH], (BATCH,))
+            y = minitorch.tensor(val_ys[: BATCH], (BATCH,))
             x = minitorch.tensor(val_x[: (BATCH * 28 * 28)], (BATCH, 28 * 28))
             out = model.forward(x.view(BATCH, 1, 28, 28)).view(BATCH)
             for i in range(BATCH):
@@ -148,13 +148,13 @@ for epoch in range(250):
                     correct += 1
             for channel in range(4):
                 vis.images(
-                    -1 * model.mid.to_numpy()[:, channel : channel + 1],
+                    -1 * model.mid.to_numpy()[: , channel : channel + 1],
                     win=f"mid_images_{channel}",
                     opts=dict(nrow=4, caption=f"mid_images_{channel}"),
                 )
             for channel in range(8):
                 vis.images(
-                    -1 * model.out.to_numpy()[:, channel : channel + 1],
+                    -1 * model.out.to_numpy()[: , channel : channel + 1],
                     win=f"out_images_{channel}",
                     opts=dict(nrow=4, caption=f"out_images_{channel}"),
                 )

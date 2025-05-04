@@ -16,11 +16,11 @@ initial_matrix = np.vstack(
 axis_default = ["i", "k", "j"]
 
 
-def permute(mat, x, y):
+def permute(mat, x, y) -> None:
     return mat.transpose(x, y)
 
 
-def plot_matrix(x, y, title, w=300, h=500, bg="white"):
+def plot_matrix(x, y, title, w=300, h=500, bg="white") -> None:
     data = [
         go.Scatter(
             hoverinfo="skip",
@@ -48,7 +48,7 @@ def plot_matrix(x, y, title, w=300, h=500, bg="white"):
     fig.show()
 
 
-def plot_map():
+def plot_map() -> None:
 
     data = [
         go.Scatter(
@@ -117,7 +117,7 @@ def plot_map():
     fig.show()
 
 
-def plot_zip():
+def plot_zip() -> None:
 
     data = [
         go.Scatter(
@@ -192,7 +192,7 @@ def plot_zip():
     fig.show()
 
 
-def plot_reduce():
+def plot_reduce() -> None:
 
     data = [
         go.Scatter(
@@ -205,8 +205,8 @@ def plot_reduce():
         go.Scatter(
             hoverinfo="skip",
             mode="markers",
-            x=x1[:2],
-            y=y1[:2],
+            x=x1[: 2],
+            y=y1[: 2],
             marker=dict(color="#69BAC9", size=50, symbol="square"),
         ),
     ]
@@ -277,7 +277,7 @@ def plot_reduce():
     fig.show()
 
 
-def plot_tensor(x, y, z, active=5):
+def plot_tensor(x, y, z, active=5) -> None:
     fig = go.Figure()
 
     # Construct tensor coordinates

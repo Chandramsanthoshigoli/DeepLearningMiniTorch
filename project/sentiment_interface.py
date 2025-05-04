@@ -12,7 +12,7 @@ from datasets import load_dataset
 EMBEDDING_SIZE = 50
 
 
-def predictions_dataframe(predictions, sentences):
+def predictions_dataframe(predictions, sentences) -> None:
     df_predictions = pd.DataFrame(
         predictions, columns=["true_label", "predicted_label", "logit"]
     )
@@ -27,14 +27,16 @@ def predictions_dataframe(predictions, sentences):
 
 
 @st.cache(allow_output_mutation=True)
-def load_glue_dataset():
+
+def load_glue_dataset() -> None:
     print("Loading dataset")
     return load_dataset("glue", "sst2")
 
 
 #  st.subheader("Encode training data as nxk Glove embeddings tensor representations")
 @st.cache(allow_output_mutation=True)
-def load_data(dataset, n_train, n_val):
+
+def load_data(dataset, n_train, n_val) -> None:
     print("Loading embeddings... This can take a while the first time.")
     return encode_sentiment_data(
         dataset,
@@ -46,16 +48,16 @@ def load_data(dataset, n_train, n_val):
     )
 
 
-def render_run_sentiment_interface():
+def render_run_sentiment_interface() -> None:
 
     st.header("Sentiment Classification")
     st.write(
-        "[Glue SS2 Dataset documentation](https://huggingface.co/datasets/glue/viewer/sst2/train)"
+        "[Glue SS2 Dataset documentation](https: //huggingface.co/datasets/glue/viewer/sst2/train)"
     )
 
     dataset_classes = ["negative", "positive"]
     class_id_to_label = {idx: label for (idx, label) in enumerate(dataset_classes)}
-    st.write("Each sentence is classified according to it's sentiment:")
+    st.write("Each sentence is classified according to it's sentiment: ")
     st.write(class_id_to_label)
     dataset = load_glue_dataset()
     train_sentences = dataset["train"]["sentence"]
@@ -63,7 +65,7 @@ def render_run_sentiment_interface():
     st.subheader("First 3 sentences in train")
     st.table(
         pd.DataFrame(
-            list(zip(dataset["train"]["sentence"][:3], dataset["train"]["label"][:3])),
+            list(zip(dataset["train"]["sentence"][: 3], dataset["train"]["label"][: 3])),
             columns=["Sentence", "Label"],
         )
     )
@@ -129,7 +131,7 @@ def render_run_sentiment_interface():
             st_progress.progress(epoch / max_epochs)
             time_per_epoch = time_elapsed / (epoch + 1)
             st_epoch_timer.markdown(
-                "Epoch {}/{}. Time per epoch: {:,.3f}s. Time left: {:,.2f}s.".format(
+                "Epoch {}/{}. Time per epoch: {: ,.3f}s. Time left: {: ,.2f}s.".format(
                     epoch,
                     max_epochs,
                     time_per_epoch,

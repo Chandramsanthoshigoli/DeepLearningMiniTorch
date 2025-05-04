@@ -8,7 +8,7 @@ from datasets import load_dataset
 BACKEND = minitorch.TensorBackend(minitorch.FastOps)
 
 
-def RParam(*shape):
+def RParam(*shape) -> None:
     r = 0.1 * (minitorch.rand(shape, backend=BACKEND) - 0.5)
     return minitorch.Parameter(r)
 
@@ -91,7 +91,8 @@ class CNNSentimentKim(minitorch.Module):
 
 
 # Evaluation helper methods
-def get_predictions_array(y_true, model_output):
+
+def get_predictions_array(y_true, model_output) -> None:
     predictions_array = []
     for j, logit in enumerate(model_output.to_numpy()):
         true_label = y_true[j]
@@ -103,7 +104,7 @@ def get_predictions_array(y_true, model_output):
     return predictions_array
 
 
-def get_accuracy(predictions_array):
+def get_accuracy(predictions_array) -> None:
     correct = 0
     for (y_true, y_pred, logit) in predictions_array:
         if y_true == y_pred:
@@ -127,10 +128,10 @@ def default_log_fn(
     best_val = (
         best_val if best_val > validation_accuracy[-1] else validation_accuracy[-1]
     )
-    print(f"Epoch {epoch}, loss {train_loss}, train accuracy: {train_accuracy[-1]:.2%}")
+    print(f"Epoch {epoch}, loss {train_loss}, train accuracy: {train_accuracy[-1]: .2%}")
     if len(validation_predictions) > 0:
-        print(f"Validation accuracy: {validation_accuracy[-1]:.2%}")
-        print(f"Best Valid accuracy: {best_val:.2%}")
+        print(f"Validation accuracy: {validation_accuracy[-1]: .2%}")
+        print(f"Best Valid accuracy: {best_val: .2%}")
 
 
 class SentenceSentimentTrain:
@@ -220,26 +221,26 @@ def encode_sentences(
 ):
     Xs = []
     ys = []
-    for sentence in dataset["sentence"][:N]:
+    for sentence in dataset["sentence"][: N]:
         # pad with 0s to max sentence length in order to enable batching
         # TODO: move padding to training code
         sentence_embedding = [[0] * embeddings_lookup.d_emb] * max_sentence_len
         for i, w in enumerate(sentence.split()):
             sentence_embedding[i] = [0] * embeddings_lookup.d_emb
             if w in embeddings_lookup:
-                sentence_embedding[i][:] = embeddings_lookup.emb(w)
+                sentence_embedding[i][: ] = embeddings_lookup.emb(w)
             else:
                 # use random embedding for unks
                 unks.add(w)
-                sentence_embedding[i][:] = unk_embedding
+                sentence_embedding[i][: ] = unk_embedding
         Xs.append(sentence_embedding)
 
     # load labels
-    ys = dataset["label"][:N]
+    ys = dataset["label"][: N]
     return Xs, ys
 
 
-def encode_sentiment_data(dataset, pretrained_embeddings, N_train, N_val=0):
+def encode_sentiment_data(dataset, pretrained_embeddings, N_train, N_val=0) -> None:
 
     #  Determine max sentence length for padding
     max_sentence_len = 0

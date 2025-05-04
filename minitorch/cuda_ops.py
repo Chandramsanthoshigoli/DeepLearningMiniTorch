@@ -97,7 +97,7 @@ class CudaOps(TensorOps):
             both_2d += 1
         both_2d = both_2d == 2
 
-        ls = list(shape_broadcast(a.shape[:-2], b.shape[:-2]))
+        ls = list(shape_broadcast(a.shape[: -2], b.shape[: -2]))
         ls.append(a.shape[-2])
         ls.append(b.shape[-1])
         assert a.shape[-1] == b.shape[-2]
@@ -128,7 +128,7 @@ def tensor_map(
     fn: Callable[[float], float]
 ) -> Callable[[Storage, Shape, Strides, Storage, Shape, Strides], None]:
     """
-    CUDA higher-order tensor map function. ::
+    CUDA higher-order tensor map function. : :
 
       fn_map = tensor_map(fn)
       fn_map(out, ... )
@@ -165,7 +165,7 @@ def tensor_zip(
     [Storage, Shape, Strides, Storage, Shape, Strides, Storage, Shape, Strides], None
 ]:
     """
-    CUDA higher-order tensor zipWith (or map2) function ::
+    CUDA higher-order tensor zipWith (or map2) function : :
 
       fn_zip = tensor_zip(fn)
       fn_zip(out, ...)
@@ -205,7 +205,7 @@ def _sum_practice(out: Storage, a: Storage, size: int) -> None:
     """
     This is a practice sum kernel to prepare for reduce.
 
-    Given an array of length $n$ and out of size $n // \text{blockDIM}$
+    Given an array of length $n$ and out of size $n // \\text{blockDIM}$
     it should sum up each blockDim values into an out cell.
 
     $[a_1, a_2, ..., a_{100}]$
@@ -355,7 +355,7 @@ def _tensor_matrix_multiply(
     * Only read each cell in `a` and `b` once.
     * Only write to global memory once per kernel.
 
-    Should work for any tensor shapes that broadcast as long as ::
+    Should work for any tensor shapes that broadcast as long as : :
 
     ```python
     assert a_shape[-1] == b_shape[-2]

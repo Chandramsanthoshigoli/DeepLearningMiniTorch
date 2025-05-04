@@ -10,11 +10,11 @@ if numba.cuda.is_available():
     GPUBackend = minitorch.TensorBackend(minitorch.CudaOps)
 
 
-def default_log_fn(epoch, total_loss, correct, losses):
+def default_log_fn(epoch, total_loss, correct, losses) -> None:
     print("Epoch ", epoch, " loss ", total_loss, "correct", correct)
 
 
-def RParam(*shape, backend):
+def RParam(*shape, backend) -> None:
     r = minitorch.rand(shape, backend=backend) - 0.5
     return minitorch.Parameter(r)
 

@@ -15,7 +15,7 @@ C = 10
 H, W = 28, 28
 
 
-def RParam(*shape):
+def RParam(*shape) -> None:
     r = 0.1 * (minitorch.rand(shape, backend=BACKEND) - 0.5)
     return minitorch.Parameter(r)
 
@@ -91,7 +91,7 @@ class Network(minitorch.Module):
         # END ASSIGN4.5
 
 
-def make_mnist(start, stop):
+def make_mnist(start, stop) -> None:
     ys = []
     X = []
     for i in range(start, stop):
@@ -103,7 +103,7 @@ def make_mnist(start, stop):
     return X, ys
 
 
-def default_log_fn(epoch, total_loss, correct, total, losses, model):
+def default_log_fn(epoch, total_loss, correct, total, losses, model) -> None:
     print(f"Epoch {epoch} loss {total_loss} valid acc {correct}/{total}")
 
 

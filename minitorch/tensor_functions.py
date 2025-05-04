@@ -30,6 +30,7 @@ def wrap_tuple(x):  # type: ignore
 
 
 # Constructors
+
 class Function:
     @classmethod
     def _backward(cls, ctx: Context, grad_out: Tensor) -> Tuple[Tensor, ...]:
@@ -273,6 +274,7 @@ class MatMul(Function):
 
 
 # Helpers for Constructing tensors
+
 def zeros(shape: UserShape, backend: TensorBackend = SimpleBackend) -> Tensor:
     """
     Produce a zero tensor of size `shape`.
@@ -303,7 +305,7 @@ def rand(
         requires_grad : turn on autodifferentiation
 
     Returns:
-        :class:`Tensor` : new tensor
+        : class: `Tensor` : new tensor
     """
     vals = [random.random() for _ in range(int(operators.prod(shape)))]
     tensor = minitorch.Tensor.make(vals, shape, backend=backend)
@@ -346,7 +348,7 @@ def tensor(
         requires_grad : turn on autodifferentiation
 
     Returns:
-        :class:`Tensor` : new tensor
+        : class: `Tensor` : new tensor
     """
 
     def shape(ls: Any) -> List[int]:

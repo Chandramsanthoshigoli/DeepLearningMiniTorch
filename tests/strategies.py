@@ -22,4 +22,4 @@ def assert_close(a: float, b: float) -> None:
     Asserts that two floats are close using minitorch's is_close function.
     """
     if not minitorch.operators.is_close(a, b):
-        raise AssertionError(f"Failure: a={a:.6f} vs b={b:.6f}")
+        raise AssertionError(f"Failure: a={a: .6f} vs b={b: .6f}")

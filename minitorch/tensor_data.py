@@ -111,7 +111,7 @@ def strides_from_shape(shape: UserShape) -> UserStrides:
     for s in reversed(shape):
         layout.append(s * offset)
         offset = s * offset
-    return tuple(reversed(layout[:-1]))
+    return tuple(reversed(layout[: -1]))
 
 
 class TensorData:
@@ -236,12 +236,12 @@ class TensorData:
             l = ""
             for i in range(len(index) - 1, -1, -1):
                 if index[i] == 0:
-                    l = "\n%s[" % ("\t" * i) + l
+                    l = "\\n%s[" % ("\\t" * i) + l
                 else:
                     break
             s += l
             v = self.get(index)
-            s += f"{v:3.2f}"
+            s += f"{v: 3.2f}"
             l = ""
             for i in range(len(index) - 1, -1, -1):
                 if index[i] == self.shape[i] - 1:

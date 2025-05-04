@@ -1,4 +1,4 @@
-# Inspired by https://github.com/cezannec/CNN_Text_Classification/blob/master/CNN_Text_Classification.ipynb
+# Inspired by https: //github.com/cezannec/CNN_Text_Classification/blob/master/CNN_Text_Classification.ipynb
 import embeddings
 import torch
 import torch.nn as nn
@@ -74,6 +74,7 @@ class SentimentCNN(nn.Module):
 
 
 # training loop
+
 def train(
     model, data_train, data_val, learning_rate=0.001, max_epochs=50, batch_size=128
 ):
@@ -131,14 +132,14 @@ def train(
         # print(y, output)
         print("Epoch: {}/{}...".format(epoch, max_epochs))
         print(
-            "Train loss: {:.6f}...".format(train_loss / n_batches),
+            "Train loss: {: .6f}...".format(train_loss / n_batches),
             f"Train correct: {train_correct}/{len(X_train)}",
-            f"Train accuracy: {train_correct/len(X_train):.2%}",
+            f"Train accuracy: {train_correct/len(X_train): .2%}",
         )
         print(
-            "Val loss: {:.6f}".format(val_loss.item()),
+            "Val loss: {: .6f}".format(val_loss.item()),
             f"Val correct: {val_correct}/{len(X_val)}",
-            f"Val accuracy: {val_correct/len(X_val):.2%}",
+            f"Val accuracy: {val_correct/len(X_val): .2%}",
         )
         print()
 
@@ -154,8 +155,8 @@ if __name__ == "__main__":
         250,
     )
 
-    print("X_train size:", len(X_train))
-    print("X_val size:", len(X_val))
+    print("X_train size: ", len(X_train))
+    print("X_val size: ", len(X_val))
 
     train(
         SentimentCNN(EMBEDDING_SIZE, kernel_sizes=[3, 4, 5]),

@@ -5,13 +5,13 @@ import streamlit as st
 img_id_counter = 0
 
 
-def get_image_id():
+def get_image_id() -> None:
     global img_id_counter
     img_id_counter += 1
     return img_id_counter
 
 
-def get_img_tag(src, width=None):
+def get_img_tag(src, width=None) -> None:
     img_id = get_image_id()
     if width is not None:
         style = """
@@ -33,7 +33,7 @@ def get_img_tag(src, width=None):
     )
 
 
-def render_function(fn):
+def render_function(fn) -> None:
     st.markdown(
         """
 ```python

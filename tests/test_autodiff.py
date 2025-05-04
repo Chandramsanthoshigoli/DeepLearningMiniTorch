@@ -25,7 +25,7 @@ class Function1(ScalarFunction):
 class Function2(ScalarFunction):
     @staticmethod
     def forward(ctx: Context, x: float, y: float) -> float:
-        "$f(x, y) = x \times y + x$"
+        "$f(x, y) = x \\times y + x$"
         ctx.save_for_backward(x, y)
         return x * y + x
 
@@ -40,6 +40,7 @@ class Function2(ScalarFunction):
 
 
 @pytest.mark.task1_3
+
 def test_chain_rule1() -> None:
     x = minitorch.Scalar(0.0)
     constant = minitorch.Scalar(
@@ -50,6 +51,7 @@ def test_chain_rule1() -> None:
 
 
 @pytest.mark.task1_3
+
 def test_chain_rule2() -> None:
     var = minitorch.Scalar(0.0, ScalarHistory())
     constant = minitorch.Scalar(
@@ -63,6 +65,7 @@ def test_chain_rule2() -> None:
 
 
 @pytest.mark.task1_3
+
 def test_chain_rule3() -> None:
     "Check that constrants are ignored and variables get derivatives."
     constant = 10
@@ -79,6 +82,7 @@ def test_chain_rule3() -> None:
 
 
 @pytest.mark.task1_3
+
 def test_chain_rule4() -> None:
     var1 = minitorch.Scalar(5)
     var2 = minitorch.Scalar(10)
@@ -102,6 +106,7 @@ def test_chain_rule4() -> None:
 
 
 @pytest.mark.task1_4
+
 def test_backprop1() -> None:
     # Example 1: F1(0, v)
     var = minitorch.Scalar(0)
@@ -111,6 +116,7 @@ def test_backprop1() -> None:
 
 
 @pytest.mark.task1_4
+
 def test_backprop2() -> None:
     # Example 2: F1(0, 0)
     var = minitorch.Scalar(0)
@@ -121,6 +127,7 @@ def test_backprop2() -> None:
 
 
 @pytest.mark.task1_4
+
 def test_backprop3() -> None:
     # Example 3: F1(F1(0, v1), F1(0, v1))
     var1 = minitorch.Scalar(0)
@@ -132,6 +139,7 @@ def test_backprop3() -> None:
 
 
 @pytest.mark.task1_4
+
 def test_backprop4() -> None:
     # Example 4: F1(F1(0, v1), F1(0, v1))
     var0 = minitorch.Scalar(0)

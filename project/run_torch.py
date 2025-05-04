@@ -3,7 +3,7 @@ import torch
 import minitorch
 
 
-def default_log_fn(epoch, total_loss, correct, losses):
+def default_log_fn(epoch, total_loss, correct, losses) -> None:
     print("Epoch ", epoch, " loss ", total_loss, "correct", correct)
 
 

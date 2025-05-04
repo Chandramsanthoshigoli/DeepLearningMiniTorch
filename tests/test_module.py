@@ -33,6 +33,7 @@ class ModuleA4(minitorch.Module):
         self.p3 = minitorch.Parameter(15)
 
 @pytest.mark.task0_4
+
 def test_stacked_demo() -> None:
     "Check that each of the properties match"
     mod = ModuleA1()
@@ -76,6 +77,7 @@ class Module3(minitorch.Module):
 
 @pytest.mark.task0_4
 @given(med_ints, med_ints)
+
 def test_module(size_a: int, size_b: int) -> None:
     "Check the properties of a single module"
     module = Module2()
@@ -97,6 +99,7 @@ def test_module(size_a: int, size_b: int) -> None:
 
 @pytest.mark.task0_4
 @given(med_ints, med_ints, small_floats)
+
 def test_stacked_module(size_a: int, size_b: int, val: float) -> None:
     "Check the properties of a stacked module"
     module = Module1(size_a, size_b, val)
@@ -125,6 +128,7 @@ class ModuleRun(minitorch.Module):
         return 10
 
 @pytest.mark.task0_4
+
 def test_module_fail_forward() -> None:
     mod = minitorch.Module()
     try:
@@ -134,6 +138,7 @@ def test_module_fail_forward() -> None:
         pass
 
 @pytest.mark.task0_4
+
 def test_module_forward() -> None:
     mod = ModuleRun()
     assert mod.forward() == 10

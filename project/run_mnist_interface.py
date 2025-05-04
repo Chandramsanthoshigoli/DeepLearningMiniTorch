@@ -7,7 +7,7 @@ import streamlit as st
 from run_mnist_multiclass import ImageTrain, make_mnist
 
 
-def render_run_image_interface():
+def render_run_image_interface() -> None:
 
     st.markdown("### Dataset")
     n_training_samples = st.number_input(
@@ -52,7 +52,7 @@ def render_run_image_interface():
             st_progress.progress(epoch / max_epochs)
             time_per_epoch = time_elapsed / (epoch + 1)
             st_epoch_timer.markdown(
-                "Epoch {}/{}. Time per epoch: {:,.3f}s. Time left: {:,.2f}s.".format(
+                "Epoch {}/{}. Time per epoch: {: ,.3f}s. Time left: {: ,.2f}s.".format(
                     epoch,
                     max_epochs,
                     time_per_epoch,

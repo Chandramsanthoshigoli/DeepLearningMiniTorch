@@ -12,17 +12,20 @@ if TYPE_CHECKING:
 
     from .scalar import Scalar, ScalarLike
 
+
 def wrap_tuple(x):  # type: ignore
     "Turn a possible value into a tuple"
     if isinstance(x, tuple):
         return x
     return (x,)
 
+
 def unwrap_tuple(x):  # type: ignore
     "Turn a singleton tuple into a value"
     if len(x) == 1:
         return x[0]
     return x
+
 
 class ScalarFunction:
     """
@@ -78,6 +81,7 @@ class Add(ScalarFunction):
     def backward(ctx: Context, d_output: float) -> Tuple[float, ...]:
         return d_output, d_output
 
+
 class Log(ScalarFunction):
     "Log function $f(x) = log(x)$"
 
@@ -93,6 +97,7 @@ class Log(ScalarFunction):
 
 
 # To implement.
+
 
 class Mul(ScalarFunction):
     "Multiplication function"
@@ -110,6 +115,7 @@ class Mul(ScalarFunction):
         # dL/da = b * d_output, dL/db = a * d_output
         return (b * d_output, a * d_output)
 
+
 class Inv(ScalarFunction):
     "Inverse function"
 
@@ -125,6 +131,7 @@ class Inv(ScalarFunction):
         (a,) = ctx.saved_values
         return (-1.0 / (a * a)) * d_output
 
+
 class Neg(ScalarFunction):
     "Negation function"
 
@@ -137,6 +144,7 @@ class Neg(ScalarFunction):
     def backward(ctx: Context, d_output: float) -> float:
         # TODO: Implement for Task 1.4.
         return -d_output
+
 
 class Sigmoid(ScalarFunction):
     "Sigmoid function"
@@ -155,6 +163,7 @@ class Sigmoid(ScalarFunction):
         # derivative = s*(1-s)
         return d_output * s * (1.0 - s)
 
+
 class ReLU(ScalarFunction):
     "ReLU function"
 
@@ -169,6 +178,7 @@ class ReLU(ScalarFunction):
         # TODO: Implement for Task 1.4.
         (a,) = ctx.saved_values
         return d_output if a > 0.0 else 0.0
+
 
 class Exp(ScalarFunction):
     "Exp function"
@@ -187,6 +197,7 @@ class Exp(ScalarFunction):
         # derivative = exp(a) = v
         return d_output * v
 
+
 class LT(ScalarFunction):
     "Less-than function $f(x) =$ 1.0 if x is less than y else 0.0"
 
@@ -199,6 +210,7 @@ class LT(ScalarFunction):
     def backward(ctx: Context, d_output: float) -> Tuple[float, float]:
         # TODO: Implement for Task 1.4.
         return (0.0, 0.0)
+
 
 class EQ(ScalarFunction):
     "Equal function $f(x) =$ 1.0 if x is equal to y else 0.0"

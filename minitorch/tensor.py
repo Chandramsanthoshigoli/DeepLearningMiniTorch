@@ -46,6 +46,7 @@ if TYPE_CHECKING:
 
 
 @dataclass
+
 class History:
     """
     `History` stores the history of `Function` operations that was
