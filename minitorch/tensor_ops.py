@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     from .tensor import Tensor
     from .tensor_data import Index, Shape, Storage, Strides
 
+
 class TensorOps:
     @staticmethod
     def map(fn: Callable[[float], float]):
@@ -45,7 +46,20 @@ class TensorOps:
 
     @staticmethod
     def matrix_multiply(a: Tensor, b: Tensor) -> Tensor:
-        raise NotImplementedError("Not implemented in this assignment")
+        assert len(a.shape) == 2 and len(b.shape) == 2, "Only 2D matrices supported"
+        assert a.shape[1] == b.shape[0], "Matrix shapes do not align for multiplication"
+
+        out_shape = (a.shape[0], b.shape[1])
+        out = a.zeros(out_shape)
+
+        for i in range(out_shape[0]):
+            for j in range(out_shape[1]):
+                total = 0.0
+                for k in range(a.shape[1]):
+                    total += a[i, k] * b[k, j]
+                out[i, j] = total
+
+        return out
 
     cuda = False
 
