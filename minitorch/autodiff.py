@@ -1,13 +1,10 @@
 from dataclasses import dataclass
 from typing import Any, Iterable, Tuple
-
-
 from typing_extensions import Protocol
+
 
 # ## Task 1.1
 # Central Difference calculation
-
-
 def central_difference(f: Any, *vals: Any, arg: int = 0, epsilon: float = 1e-6) -> Any:
     r"""
     Computes an approximation to the derivative of `f` with respect to one arg.
@@ -23,7 +20,6 @@ def central_difference(f: Any, *vals: Any, arg: int = 0, epsilon: float = 1e-6) 
     Returns:
         An approximation of $f'_i(x_0, \ldots, x_{n-1})$
     """
-    # TODO: Implement for Task 1.1.
     vals = list(vals)
     vals[arg] += epsilon
     f_plus = f(*vals)
@@ -67,7 +63,6 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
     Returns:
         Non-constant Variables in topological order starting from the right.
     """
-    # TODO: Implement for Task 1.4.
     visited: set[int] = set()
     order: list[Variable] = []
 
@@ -92,9 +87,8 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
         variable: The right-most variable
         deriv  : Its derivative that we want to propagate backward to the leaves.
 
-    No return. Should write to its results to the derivative values of each leaf through `accumulate_derivative`.
+    No return. Should write its results to the derivative values of each leaf through `accumulate_derivative`.
     """
-    # TODO: Implement for Task 1.4.
     topo = list(topological_sort(variable))
 
     variable.derivative = deriv
@@ -114,7 +108,6 @@ class Context:
     """
     Context class is used by `Function` to store information during the forward pass.
     """
-
     no_grad: bool = False
     saved_values: Tuple[Any, ...] = ()
 
@@ -122,7 +115,7 @@ class Context:
         "Store the given `values` if they need to be used during backpropagation."
         if self.no_grad:
             return
-        self.saved_values = values
+        self.saved_values = tuple(values)
 
     @property
     def saved_tensors(self) -> Tuple[Any, ...]:
