@@ -10,11 +10,9 @@ if TYPE_CHECKING:
     from .tensor import Tensor
     from .tensor_data import Shape, Storage, Strides
 
-
 class MapProto(Protocol):
     def __call__(self, x: Tensor, out: Optional[Tensor] = ..., /) -> Tensor:
         ...
-
 
 class TensorOps:
     @staticmethod
@@ -41,7 +39,6 @@ class TensorOps:
 
     cuda = False
 
-
 class TensorBackend:
     def __init__(self, ops: Type[TensorOps]):
         self.neg_map = ops.map(operators.neg)
@@ -66,7 +63,6 @@ class TensorBackend:
         self.mul_reduce = ops.reduce(operators.mul, 1.0)
         self.matrix_multiply = ops.matrix_multiply
         self.cuda = ops.cuda
-
 
 class SimpleOps(TensorOps):
     @staticmethod
@@ -116,7 +112,6 @@ class SimpleOps(TensorOps):
 
     is_cuda = False
 
-
 def tensor_map(
     fn: Callable[[float], float]
 ) -> Callable[[Storage, Shape, Strides, Storage, Shape, Strides], None]:
@@ -131,7 +126,6 @@ def tensor_map(
         raise NotImplementedError('Need to implement for Task 2.3')
 
     return _map
-
 
 def tensor_zip(
     fn: Callable[[float, float], float]
@@ -152,7 +146,6 @@ def tensor_zip(
         raise NotImplementedError('Need to implement for Task 2.3')
 
     return _zip
-
 
 def tensor_reduce(
     fn: Callable[[float, float], float]

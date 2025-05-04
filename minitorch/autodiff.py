@@ -3,8 +3,9 @@ from typing import Any, Iterable, Tuple
 from typing_extensions import Protocol
 
 
-# ## Task 1.1
+# # # Task 1.1
 # Central Difference calculation
+
 def central_difference(f: Any, *vals: Any, arg: int = 0, epsilon: float = 1e-6) -> Any:
     r"""
     Computes an approximation to the derivative of `f` with respect to one arg.
@@ -13,12 +14,12 @@ def central_difference(f: Any, *vals: Any, arg: int = 0, epsilon: float = 1e-6) 
 
     Args:
         f : arbitrary function from n-scalar args to one value
-        *vals : n-float values $x_0 \ldots x_{n-1}$
+        *vals : n-float values $x_0 \\ldots x_{n-1}$
         arg : the number $i$ of the arg to compute the derivative
         epsilon : a small constant
 
     Returns:
-        An approximation of $f'_i(x_0, \ldots, x_{n-1})$
+        An approximation of $f'_i(x_0, \\ldots, x_{n-1})$
     """
     vals = list(vals)
     vals[arg] += epsilon
@@ -29,7 +30,6 @@ def central_difference(f: Any, *vals: Any, arg: int = 0, epsilon: float = 1e-6) 
 
 
 variable_count = 1
-
 
 class Variable(Protocol):
     def accumulate_derivative(self, x: Any) -> None:
@@ -51,7 +51,6 @@ class Variable(Protocol):
 
     def chain_rule(self, d_output: Any) -> Iterable[Tuple["Variable", Any]]:
         pass
-
 
 def topological_sort(variable: Variable) -> Iterable[Variable]:
     """
@@ -76,7 +75,6 @@ def topological_sort(variable: Variable) -> Iterable[Variable]:
 
     dfs(variable)
     return order
-
 
 def backpropagate(variable: Variable, deriv: Any) -> None:
     """
@@ -104,6 +102,7 @@ def backpropagate(variable: Variable, deriv: Any) -> None:
 
 
 @dataclass
+
 class Context:
     """
     Context class is used by `Function` to store information during the forward pass.

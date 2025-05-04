@@ -5,7 +5,7 @@ Collection of the core mathematical operators used throughout the code base.
 import math
 from typing import Callable, Iterable
 
-# ## Task 0.1
+# # # Task 0.1
 # Implementation of a prelude of elementary functions.
 
 def mul(x: float, y: float) -> float:
@@ -42,7 +42,7 @@ def is_close(x: float, y: float) -> float:
 
 def sigmoid(x: float) -> float:
     r"""
-    $f(x) = \frac{1.0}{1.0 + e^{-x}}$ if x >= 0 else $\frac{e^x}{1.0 + e^x}$
+    $f(x) = \\frac{1.0}{1.0 + e^{-x}}$ if x >= 0 else $\\frac{e^x}{1.0 + e^x}$
     """
     if x >= 0:
         return 1 / (1 + math.exp(-x))
@@ -65,7 +65,7 @@ def exp(x: float) -> float:
     return math.exp(x)
 
 def log_back(x: float, d: float) -> float:
-    "$f(x) = log(x) \Rightarrow f'(x) = 1/x$, so $d \times f'(x) = d/x$"
+    "$f(x) = log(x) \\Rightarrow f'(x) = 1/x$, so $d \\times f'(x) = d/x$"
     return d / x
 
 def inv(x: float) -> float:
@@ -73,14 +73,14 @@ def inv(x: float) -> float:
     return 1 / x
 
 def inv_back(x: float, d: float) -> float:
-    "$f(x) = 1/x \Rightarrow f'(x) = -1/x^2$, so $d \times f'(x) = -d/x^2$"
+    "$f(x) = 1/x \\Rightarrow f'(x) = -1/x^2$, so $d \\times f'(x) = -d/x^2$"
     return -d / (x ** 2)
 
 def relu_back(x: float, d: float) -> float:
-    "$f(x) = relu(x) \Rightarrow f'(x) = 1 \text{ if } x > 0$, else 0$"
+    "$f(x) = relu(x) \\Rightarrow f'(x) = 1 \\text{ if } x > 0$, else 0$"
     return d if x > 0 else 0
 
-# ## Task 0.3 - Higher order functions
+# # # Task 0.3 - Higher order functions
 
 def map(fn: Callable[[float], float]) -> Callable[[Iterable[float]], Iterable[float]]:
     def apply(my_list):

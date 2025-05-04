@@ -2,7 +2,6 @@ from __future__ import annotations
 
 from typing import Any, Dict, Optional, Sequence, Tuple
 
-
 class Module:
     """
     Modules form a tree that store parameters and other
@@ -98,13 +97,13 @@ class Module:
 
     def __repr__(self) -> str:
         def _addindent(s_: str, numSpaces: int) -> str:
-            s2 = s_.split("\n")
+            s2 = s_.split("\\n")
             if len(s2) == 1:
                 return s_
             first = s2.pop(0)
             s2 = [(numSpaces * " ") + line for line in s2]
-            s = "\n".join(s2)
-            s = first + "\n" + s
+            s = "\\n".join(s2)
+            s = first + "\\n" + s
             return s
 
         child_lines = []
@@ -118,11 +117,10 @@ class Module:
         main_str = self.__class__.__name__ + "("
         if lines:
             # simple one-liner info, which most builtin Modules will use
-            main_str += "\n  " + "\n  ".join(lines) + "\n"
+            main_str += "\\n  " + "\\n  ".join(lines) + "\\n"
 
         main_str += ")"
         return main_str
-
 
 class Parameter:
     """
@@ -190,4 +188,3 @@ class Network(Module):
         h = self.l1(x)
         h = [t.relu() for t in h]
         return self.l2(h)
-
