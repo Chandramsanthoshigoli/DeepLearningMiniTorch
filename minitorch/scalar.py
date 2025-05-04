@@ -20,7 +20,8 @@ from .scalar_functions import (
     Sigmoid,
 )
 
-ScalarLike = Union[float, int, Scalar]
+# ✅ Forward reference: use string to avoid NameError
+ScalarLike = Union[float, int, "Scalar"]
 
 
 @dataclass
